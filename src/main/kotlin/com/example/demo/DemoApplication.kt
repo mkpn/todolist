@@ -11,10 +11,18 @@ class DemoApplication {
 
     @Bean
     fun commandLineRunner(jdbcTemplate: JdbcTemplate) = CommandLineRunner {
-        jdbcTemplate.execute("""CREATE TABLE IF NOT EXISTS task (
-          id      BIGINT       PRIMARY KEY AUTO_INCREMENT ,
-          content VARCHAR(100) NOT NULL,
-          done    BOOLEAN      NOT NULL DEFAULT FALSE)""")
+        jdbcTemplate.execute("""CREATE TABLE IF NOT EXISTS anime (
+          id         BIGINT   PRIMARY KEY AUTO_INCREMENT,
+          content_id  BIGINT   UNIQUE,
+          title      NVARCHAR NOT NULL,
+          english    VARCHAR  NOT NULL,
+          synonyms   NVARCHAR NOT NULL,
+          episodes   INT      NOT NULL,
+          score      FLOAT    NOT NULL,
+          start_date VARCHAR  NOT NULL,
+          end_date   VARCHAR  NOT NULL,
+          synopsis   VARCHAR  NOT NULL,
+          image      VARCHAR  NOT NULL)""")
     }
 }
 
