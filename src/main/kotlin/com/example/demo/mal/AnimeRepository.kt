@@ -1,13 +1,11 @@
 package com.example.demo.task
 
-import com.example.demo.mal.Anime
-
 interface AnimeRepository {
     fun create(searchQuery: String)
 
-//    fun update(anime: Anime)
+//    fun update(anime: Entry)
 
-//    fun findAll(): List<Anime>
+//    fun findAll(): List<Entry>
 //
-//    fun findById(id: Long): Anime?
+//    fun findById(id: Long): Entry?
 }

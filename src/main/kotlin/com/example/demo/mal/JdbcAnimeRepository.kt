@@ -9,11 +9,17 @@ import sun.rmi.runtime.Log
 @Repository
 class JdbcAnimeRepository(private val jdbcTemplate: JdbcTemplate) : AnimeRepository {
     override fun create(searchQuery: String) {
-        SearchAnimeService().search(searchQuery)
-//        jdbcTemplate.update("""INSERT INTO anime(content_id, title,
-//            |                                    english, synonyms, episodes, score,
-//            |                                    start_date, end_date, synopsis, image)
-//            |                                    VALUES(?,?,?,?,?,?,?,?,?,?)""".trimMargin(), anime)
+        val animeList = SearchAnimeService().search(searchQuery)
+
+        animeList.forEach { anime ->
+            jdbcTemplate.update("""INSERT INTO anime(content_id, title,
+            |                                    english, synonyms, episodes, score,
+            |                                    start_date, end_date, synopsis, image)
+            |                                    VALUES(?,?,?,?,?,?,?,?,?,?)""".trimMargin(),
+                    anime.contentId, anime.title,
+                    anime.english, anime.synonyms, anime.episodes, anime.score,
+                    anime.startDate, anime.endDate, anime.synopsis, anime.image)
+        }
 //        val id: Long = jdbcTemplate.queryForObject("SELECT last_insert_id()")
     }
 }
