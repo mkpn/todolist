@@ -23,9 +23,9 @@ class JdbcTaskRepository(private val jdbcTemplate: JdbcTemplate) : TaskRepositor
     }
 
     override fun findAll(): List<Task> =
-            jdbcTemplate.query("SELECT id , content, done FROM task", rowMapper) // SELECT * じゃダメなんかな？
+            jdbcTemplate.query("SELECT id, content, done FROM task", rowMapper) // SELECT * でもOKだった
 
     override fun findById(id: Long): Task? =
-            jdbcTemplate.query("SELECT id , content, done FROM task WHERE id = ?", rowMapper, id).firstOrNull()
+            jdbcTemplate.query("SELECT id, content, done FROM task WHERE id = ?", rowMapper, id).firstOrNull()
 
 }
