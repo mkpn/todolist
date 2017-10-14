@@ -5,16 +5,21 @@
     <title>タスク作成</title>
 </head>
 <body>
-<form th:method="post" th:action="@{./}" th:object="${taskCreateForm}">
+<form th:method="patch" th:action="@{./}" th:object="${taskUpdateForm}">
     <div>
         <label>
-            内容:<input type="text" th:field="*{content}"/>
+            内容: <input type="text" th:field="*{content}"/>
         </label>
         <!--システムが吐いたエラーメッセージがそのまま表示される-->
         <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}">エラーメッセージ</p>
     </div>
     <div>
-        <input type="submit" value="作成"/>
+        <label>
+            完了: <input th:type="checkbox" th:field="*{done}"/>
+        </label>
+    </div>
+    <div>
+        <input type="submit" value="更新"/>
     </div>
 </form>
 </body>

@@ -1,12 +1,11 @@
 package com.example.demo
 
+import javassist.NotFoundException
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("tasks")
@@ -28,18 +27,40 @@ class TaskController(private val taskRepository: TaskRepository) {
         return "tasks/new"
     }
 
+    @GetMapping("{id}/edit")
+    fun edit(@PathVariable("id") id: Long,
+             form: TaskUpdateForm): String {
+        val task = taskRepository.findById(id) ?: throw NotFoundException()
+        form.content = task.content
+        form.done = task.done
+        return "tasks/edit"
+    }
+
     //htmlからのpost形式submitを受け取る部分も書くんだねー
-    @PostMapping("")
+    @PostMapping("") // postリクエストに反応する
     fun create(@Validated form: TaskCreateForm,
                bindingResult: BindingResult): String {
-        // エラー時にtasks/newを描画する処理になる
-        if(bindingResult.hasErrors()) return "tasks/new"
+        // エラー時はまたtasks/newページに飛ぶ。エラーメッセージが表示される。
+        if (bindingResult.hasErrors()) return "tasks/new"
 
         //　バリデーションを突破していてnullはありえないので、requireNotNullで強制変換変換しているらしい
         // "!!演算子"を使ってもいい
         val content = requireNotNull(form.content)
         taskRepository.create(content)
         // taskRepository.create(form.content!!)　←これでもok
+        return "redirect:/tasks"
+    }
+
+    @PatchMapping("{id}") //patchリクエストに反応する
+    fun update(@PathVariable("id") id: Long,
+               @Validated form: TaskUpdateForm,
+               bindingResult: BindingResult): String {
+        if (bindingResult.hasErrors()) return "tasks/edit"
+
+        val task = taskRepository.findById(id) ?: throw NotFoundException()
+        val newTask = task.copy(content = requireNotNull(form.content), done = form.done)
+
+        taskRepository.update(newTask)
         return "redirect:/tasks"
     }
 
