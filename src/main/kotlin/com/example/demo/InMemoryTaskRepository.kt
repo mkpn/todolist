@@ -2,6 +2,7 @@ package com.example.demo
 
 import org.springframework.stereotype.Repository
 
+// メモリにタスクリストを保持してそれに対するCRUDを提供するリポジトリクラス
 @Repository
 class InMemoryTaskRepository : TaskRepository {
     private val tasks: MutableList<Task> = mutableListOf()
