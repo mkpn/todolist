@@ -14,10 +14,13 @@ class Entry {
     lateinit var synonyms: String
     var episodes: Int = 0
     var score: Float = 0f
+    lateinit var type: String
     @XmlElement(name = "start_date")
     lateinit var startDate: String
     @XmlElement(name = "end_date")
     lateinit var endDate: String
     lateinit var synopsis: String
     lateinit var image: String
+    var chapters: Int = 0
+    var volumes: Int = 0
 }
