@@ -8,7 +8,7 @@ import java.io.StringReader
 import javax.xml.bind.JAXB
 
 class SearchAnimeService {
-    val restTemplate = RestTemplateBuilder().basicAuthorization(Constants.USER_NAME, Constants.PASSWORD).build()
+    val restTemplate = RestTemplateBuilder().basicAuthorization("ne-san", "M4LRecSample").build()
     val searchAnimeUrl = "https://myanimelist.net/api/anime/search.xml?q={searchQuery}"
     val logger = LoggerFactory.getLogger(SearchAnimeService::class.java)
 
@@ -16,12 +16,6 @@ class SearchAnimeService {
         val responseEntity = restTemplate.getForEntity<String>(searchAnimeUrl, searchQuery)
 
         val animeList = JAXB.unmarshal(StringReader(responseEntity?.body), AnimeList::class.java)
-//        val stringReader = StringReader(responseEntity?.body)
-//        val jaxbContext = JAXBContext.newInstance(AnimeList::class.java)
-//        val xif = XMLInputFactory.newInstance()
-//        val xsr = xif.createXMLStreamReader(stringReader)
-//        val unmarshaller = jaxbContext.createUnmarshaller()
-//        val animeList = unmarshaller.unmarshal(xsr) as AnimeList
 
         animeList.entryList.forEach {
             logger.info("start date is ${it.startDate}")
