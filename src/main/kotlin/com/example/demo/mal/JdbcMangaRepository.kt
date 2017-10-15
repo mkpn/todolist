@@ -16,7 +16,7 @@ class JdbcMangaRepository(private val jdbcTemplate: JdbcTemplate) : com.example.
     override fun findAll(): List<Manga> = jdbcTemplate.query("SELECT * FROM MANGA", rowMapper)
 
     override fun create(searchQuery: String) {
-        val animeList = SearchAnimeService().search(searchQuery)
+        val animeList = SearchMangaService().search(searchQuery)
 
         animeList.forEach { manga ->
             jdbcTemplate.update("""INSERT INTO manga(content_id, title,

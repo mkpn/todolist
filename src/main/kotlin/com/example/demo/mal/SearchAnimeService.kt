@@ -1,6 +1,5 @@
 package com.example.demo.mal
 
-import com.example.demo.Constants
 import com.example.demo.getForEntity
 import org.slf4j.LoggerFactory
 import org.springframework.boot.web.client.RestTemplateBuilder
