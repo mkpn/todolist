@@ -5,16 +5,16 @@
     <title>タスク作成</title>
 </head>
 <body>
-<form th:method="post" th:action="@{./}" th:object="${taskCreateForm}">
+<form th:method="post" th:action="@{./}" th:object="${mangaSearchForm}">
     <div>
         <label>
-            内容:<input type="text" th:field="*{content}"/>
+            検索語句: <input type="text" th:field="*{title}"/>
         </label>
         <!--システムが吐いたエラーメッセージがそのまま表示される-->
-        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}">エラーメッセージ</p>
+        <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">エラーメッセージ</p>
     </div>
     <div>
-        <input type="submit" value="作成"/>
+        <input type="submit" value="検索・DB保存"/>
     </div>
 </form>
 </body>

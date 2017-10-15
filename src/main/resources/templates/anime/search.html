@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>タスク作成</title>
+</head>
+<body>
+<form th:method="post" th:action="@{./}" th:object="${animeSearchForm}">
+    <div>
+        <label>
+            検索語句: <input type="text" th:field="*{title}"/>
+        </label>
+        <!--システムが吐いたエラーメッセージがそのまま表示される-->
+        <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">エラーメッセージ</p>
+    </div>
+    <div>
+        <input type="submit" value="検索・DB保存"/>
+    </div>
+</form>
+</body>
+</html>

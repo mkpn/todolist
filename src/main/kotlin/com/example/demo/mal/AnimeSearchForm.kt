@@ -1,10 +1,10 @@
-package com.example.demo
+package com.example.demo.mal
 
 import org.hibernate.validator.constraints.NotBlank
 import javax.validation.constraints.Size
 
-class TaskCreateForm {
+class AnimeSearchForm {
     @NotBlank
     @Size(max = 20)
-    var content: String? = null
+    var title: String? = null
 }
